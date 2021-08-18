@@ -3,22 +3,22 @@ loaderVersion="[34,)"
 license="MIT"
 [[mods]]
 
-modId="limitedspawners"
-version="${file.jarVersion}"
-displayName="Limited Spawners"
-description='''
+modId = "limitedspawners"
+version = "${file.jarVersion}"
+displayName = "Limited Spawners"
+description = '''
 This mods limits the no of mobs a mob spawner can spawn
 '''
 [[dependencies.limitedspawners]]
-    modId="forge"
-    mandatory=true
-    versionRange="[34,)"
-    ordering="NONE"
-    side="BOTH"
+modId = "forge"
+mandatory = true
+versionRange = "[37.0.36,)"
+ordering = "NONE"
+side = "BOTH"
 # Here's another dependency
 [[dependencies.limitedspawners]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.16.3]"
-    ordering="NONE"
-    side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.17.1,]"
+ordering = "NONE"
+side = "BOTH"

@@ -1,19 +1,32 @@
 package io.github.strikerrocker.limitedspawner;
 
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class Provider implements ICapabilityProvider {
+import javax.annotation.Nonnull;
 
+public class Provider implements ICapabilitySerializable<CompoundTag> {
 
-    final LazyOptional<ISpawner> containerGetter = LazyOptional.of(SpawnerCapability.Impl::new);
+    ISpawner instance = new Impl();
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+        return LimitedSpawner.INSTANCE.orEmpty(cap, LazyOptional.of(() -> instance));
+    }
 
     @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-        if (cap == SpawnerCapability.INSTANCE)
-            return containerGetter.cast();
-        return LazyOptional.empty();
+    public CompoundTag serializeNBT() {
+        CompoundTag nbt = new CompoundTag();
+        nbt.putInt("spawned", instance.getSpawned());
+        return nbt;
+    }
+
+    @Override
+    public void deserializeNBT(CompoundTag nbt) {
+        instance.setSpawned(nbt.getInt("spawned"));
     }
 }
