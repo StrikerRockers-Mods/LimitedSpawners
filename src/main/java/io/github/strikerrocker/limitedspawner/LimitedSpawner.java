@@ -9,15 +9,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static io.github.strikerrocker.limitedspawner.LimitedSpawner.MODID;
@@ -32,8 +32,8 @@ public class LimitedSpawner {
     private static final ResourceLocation CAP = new ResourceLocation(MODID, "spawner");
     public static ForgeConfigSpec.ConfigValue<Integer> LIMIT;
     public static ForgeConfigSpec COMMON_CONFIG;
-    @CapabilityInject(ISpawner.class)
-    public static Capability<ISpawner> INSTANCE;
+    public static Capability<ISpawner> INSTANCE = CapabilityManager.get(new CapabilityToken<>() {
+    });
 
     static {
         ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
@@ -45,11 +45,11 @@ public class LimitedSpawner {
 
     public LimitedSpawner() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerCapabilities);
     }
 
-    public void commonSetup(FMLCommonSetupEvent event) {
-        CapabilityManager.INSTANCE.register(ISpawner.class);
+    public void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.register(ISpawner.class);
     }
 
     @Mod.EventBusSubscriber()

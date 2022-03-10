@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[34,)"
+loaderVersion="[38,)"
 license="MIT"
 [[mods]]
 
@@ -12,13 +12,13 @@ This mods limits the no of mobs a mob spawner can spawn
 [[dependencies.limitedspawners]]
 modId = "forge"
 mandatory = true
-versionRange = "[37.0.36,)"
+versionRange = "[38.0.0,)"
 ordering = "NONE"
 side = "BOTH"
 # Here's another dependency
 [[dependencies.limitedspawners]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.17.1,]"
+versionRange = "[1.18,]"
 ordering = "NONE"
 side = "BOTH"
