@@ -70,7 +70,7 @@ public class LimitedSpawner {
 
         @SubscribeEvent
         public static void onCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
-            if (!event.getWorld().isClientSide() && event.getSpawnReason() == MobSpawnType.SPAWNER) {
+            if (!event.getLevel().isClientSide() && event.getSpawnReason() == MobSpawnType.SPAWNER) {
                 BaseSpawner spawner = event.getSpawner();
                 if (spawner.getSpawnerBlockEntity() instanceof SpawnerBlockEntity spawnerBlockEntity) {
                     spawnerBlockEntity.getCapability(INSTANCE).ifPresent(cap -> {
