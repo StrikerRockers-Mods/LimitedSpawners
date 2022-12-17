@@ -21,18 +21,16 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static io.github.strikerrocker.limitedspawner.LimitedSpawner.MODID;
-import static net.minecraftforge.eventbus.api.Event.Result.DEFAULT;
 import static net.minecraftforge.eventbus.api.Event.Result.DENY;
 
 @Mod(MODID)
 public class LimitedSpawner {
 
-
     public static final String MODID = "limitedspawners";
     private static final ResourceLocation CAP = new ResourceLocation(MODID, "spawner");
     public static ForgeConfigSpec.ConfigValue<Integer> LIMIT;
     public static ForgeConfigSpec COMMON_CONFIG;
-    public static Capability<ISpawner> INSTANCE = CapabilityManager.get(new CapabilityToken<>() {
+    public static Capability<LimitedSpawnerData> INSTANCE = CapabilityManager.get(new CapabilityToken<>() {
     });
 
     static {
@@ -49,7 +47,7 @@ public class LimitedSpawner {
     }
 
     public void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.register(ISpawner.class);
+        event.register(LimitedSpawnerData.class);
     }
 
     @Mod.EventBusSubscriber()
@@ -57,8 +55,7 @@ public class LimitedSpawner {
 
         @SubscribeEvent
         public static void onAttachCapEntity(AttachCapabilitiesEvent<Entity> event) {
-            if (event.getObject() instanceof MinecartSpawner)
-                event.addCapability(CAP, new Provider());
+            if (event.getObject() instanceof MinecartSpawner) event.addCapability(CAP, new Provider());
         }
 
         @SubscribeEvent
@@ -77,7 +74,6 @@ public class LimitedSpawner {
                         if (cap.getSpawned() >= LIMIT.get()) {
                             event.setResult(DENY);
                         } else {
-                            event.setResult(DEFAULT);
                             cap.increaseSpawned();
                         }
                     });
@@ -86,7 +82,6 @@ public class LimitedSpawner {
                         if (cap.getSpawned() >= LIMIT.get()) {
                             event.setResult(DENY);
                         } else {
-                            event.setResult(DEFAULT);
                             cap.increaseSpawned();
                         }
                     });

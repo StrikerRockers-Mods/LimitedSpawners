@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 
 public class Provider implements ICapabilitySerializable<CompoundTag> {
 
-    ISpawner instance = new Impl();
+    LimitedSpawnerData instance = new LimitedSpawnerData();
 
     @Nonnull
     @Override

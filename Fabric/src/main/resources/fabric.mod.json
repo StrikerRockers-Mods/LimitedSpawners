@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "limitedspawners",
+  "version": "${version}",
+  "name": "Limited Spawner",
+  "description": "Adds a limit for number of mobs a mob spawners can spawn.",
+  "authors": [
+    "StrikerRocker"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.strikerrocker.limitedspawners.LimitedSpawner"
+    ],
+    "modmenu": [
+      "io.github.strikerrocker.limitedspawners.ModMenuCompat"
+    ]
+  },
+  "mixins": [
+    "limitedspawners.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "fabric": "*",
+    "minecraft": "1.19.x",
+    "java": ">=17",
+    "cloth-config2": ">=7"
+  }
+}

@@ -15,7 +15,6 @@ mandatory = true
 versionRange = "[41,)"
 ordering = "NONE"
 side = "BOTH"
-# Here's another dependency
 [[dependencies.limitedspawners]]
 modId = "minecraft"
 mandatory = true
