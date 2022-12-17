@@ -1,4 +1,4 @@
-package io.github.strikerrocker.limitedspawner;
+package io.github.strikerrocker.limitedspawners;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

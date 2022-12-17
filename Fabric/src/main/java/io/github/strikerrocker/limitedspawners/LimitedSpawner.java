@@ -5,7 +5,6 @@ import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 
 public class LimitedSpawner implements ModInitializer {
-    public static final String MODID = "limitedspawners";
     public static ModConfig config;
 
     static {

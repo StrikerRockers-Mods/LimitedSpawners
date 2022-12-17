@@ -1,4 +1,4 @@
-package io.github.strikerrocker.limitedspawner;
+package io.github.strikerrocker.limitedspawners;
 
 public class LimitedSpawnerData {
     int spawned = 0;

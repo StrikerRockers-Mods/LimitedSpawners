@@ -1,4 +1,4 @@
-package io.github.strikerrocker.limitedspawner;
+package io.github.strikerrocker.limitedspawners;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -20,13 +20,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import static io.github.strikerrocker.limitedspawner.LimitedSpawner.MODID;
+import static io.github.strikerrocker.limitedspawners.Constants.MODID;
 import static net.minecraftforge.eventbus.api.Event.Result.DENY;
 
 @Mod(MODID)
 public class LimitedSpawner {
 
-    public static final String MODID = "limitedspawners";
     private static final ResourceLocation CAP = new ResourceLocation(MODID, "spawner");
     public static ForgeConfigSpec.ConfigValue<Integer> LIMIT;
     public static ForgeConfigSpec COMMON_CONFIG;
