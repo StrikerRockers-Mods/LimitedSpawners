@@ -13,7 +13,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -21,7 +21,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static io.github.strikerrocker.limitedspawners.Constants.MODID;
-import static net.minecraftforge.eventbus.api.Event.Result.DENY;
 
 @Mod(MODID)
 public class LimitedSpawner {
@@ -65,13 +64,13 @@ public class LimitedSpawner {
         }
 
         @SubscribeEvent
-        public static void onCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
-            if (!event.getLevel().isClientSide() && event.getSpawnReason() == MobSpawnType.SPAWNER) {
+        public static void onCheckSpawn(MobSpawnEvent.FinalizeSpawn event) {
+            if (!event.getLevel().isClientSide() && event.getSpawnType() == MobSpawnType.SPAWNER) {
                 BaseSpawner spawner = event.getSpawner();
                 if (spawner.getSpawnerBlockEntity() instanceof SpawnerBlockEntity spawnerBlockEntity) {
                     spawnerBlockEntity.getCapability(INSTANCE).ifPresent(cap -> {
                         if (cap.getSpawned() >= LIMIT.get()) {
-                            event.setResult(DENY);
+                            event.setSpawnCancelled(true);
                         } else {
                             cap.increaseSpawned();
                         }
@@ -79,7 +78,7 @@ public class LimitedSpawner {
                 } else if (spawner.getSpawnerEntity() instanceof MinecartSpawner minecartSpawner) {
                     minecartSpawner.getCapability(INSTANCE).ifPresent(cap -> {
                         if (cap.getSpawned() >= LIMIT.get()) {
-                            event.setResult(DENY);
+                            event.setSpawnCancelled(true);
                         } else {
                             cap.increaseSpawned();
                         }
